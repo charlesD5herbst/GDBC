@@ -11,5 +11,11 @@ Set up and activate the virtual [conda](https://docs.anaconda.com/anaconda/insta
 - `conda activate gdbc`
   
 Set up and install the following additional dependencies in the virtual conda environment:
-- `tensorboard 2.12.3`
+- `tensorboard                   2.12.3`
+- `tensorboard-data-server       0.7.1`
+- `tensorflow                    2.12.0`
+- `tensorflow-addons             0.22.0`
+- `tensorflow-estimator          2.12.0`
+- `tensorflow-io-gcs-filesystem  0.32.0`
+- `tensorflow-metadata           1.13.1`
 
