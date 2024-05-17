@@ -13,7 +13,7 @@ checkpoint_absence_class = cwd + '/vae_checkpoint/checkpoint_neg/cp.ckpt'
 latent_dim = 32
 num_units = 32
 model = VAE(num_units=num_units, dim_z=latent_dim)
-model.load_weights(checkpoint_path)
+model.load_weights(checkpoint_presence_class)
 
 num_to_generate = 2000
 batch_size = 500
