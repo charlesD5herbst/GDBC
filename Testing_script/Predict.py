@@ -1,4 +1,4 @@
-from Testing_script.TestingDataframes import get_annotation_information
+from Testing.TestingDataframes import get_annotation_information
 import os
 from os import listdir
 import numpy as np
