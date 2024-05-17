@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from statistics import mean
 from statistics import stdev
 from models.CNNNetwork import *
-from Testing.PredictionHelper import *
-from Testing.Predict import compute_metrics
+from Testing_script.PredictionHelper import *
+from Testing_script.Predict import compute_metrics
 import time
 import configparser
 import sys
