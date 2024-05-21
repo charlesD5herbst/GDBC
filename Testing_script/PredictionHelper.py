@@ -28,9 +28,8 @@ current_directory = os.getcwd()
 
 class PredictionHelper:
     
-    def __init__(self, cnn_model):
-
-        self.cnn_model = cnn_model
+    def __init__(self):
+        
         self.species_folder = current_directory+'/Testing_script'
         self.lowpass_cutoff = 4000  # Cutt off for low pass filter
         self.downsample_rate = 9600  # Frequency to downsample to
@@ -191,13 +190,10 @@ class PredictionHelper:
         return spectrograms
     
     def load_model(self):
-
+        
         print('Initialising cnn network.')
         networks = CNNNetwork()
-        if self.cnn_model == 'custom_cnn':
-            model = networks.custom_model()
-        else:
-            model = networks.resnet()
+        model = networks.resnet()
         print('Loading weights: ')
         checkpoint = current_directory+f'/cnn_checkpoint/checkpoint/{base_name}/cp.ckpt'
         model.load_weights(checkpoint)
