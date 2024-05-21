@@ -5,7 +5,7 @@
 ## Download Data
 The subset of data used can be downloaded from the original repository [here](https://zenodo.org/records/6328319)
 
-Names of specific files used are provided in `TrainingFiles.txt` and `TestingFiles.txt` 
+Filenames are provided in `TrainingFiles.txt` and `TestingFiles.txt` 
 
 ----
 ## Requirements
@@ -16,5 +16,7 @@ Set up and activate the virtual [conda](https://docs.anaconda.com/anaconda/insta
 Install the following additional dependencies in the virtual conda environment:
 - `tensorflow                    2.12.0`
 - `tensorflow-addons             0.22.0`
+----
+## Preprocessing
 
 
