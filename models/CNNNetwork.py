@@ -22,19 +22,30 @@ class CNNNetwork:
                       metrics=["accuracy", tf.keras.metrics.Precision(), tf.keras.metrics.Recall()])
         return model
 
-    def resnet(self):
-        #resnet = tf.keras.models.load_model('/Users/charlherbst/Lemurs/lemurs/baseline/models/resnet_101V2.h5')
-        resnet = tf.keras.applications.ResNet152V2(include_top=False, weights='imagenet')
+    def resnet101V2(self):
+        resnet = tf.keras.applications.ResNet101V2(include_top=False, weights='imagenet')
         for layer in resnet.layers:
             layer.trainable = False
 
         inputs = tf.keras.Input(shape=(128, 128, 3))
         x = resnet(inputs)
         x = tf.keras.layers.Flatten()(x)
-        #x = tf.keras.layers.Dense(units=24, activation="relu")(x)
-        #x = tf.keras.layers.Dropout(rate=0.2)(x)
         outputs = tf.keras.layers.Dense(2, activation="softmax")(x)
         model = tf.keras.Model(inputs=inputs, outputs=outputs, name="my_model")
         model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.0005), loss="categorical_crossentropy",
-                      metrics=["accuracy", tf.keras.metrics.AUC(), tf.keras.metrics.Precision(), tf.keras.metrics.Recall()])
+                      metrics=["accuracy", tf.keras.metrics.Precision(), tf.keras.metrics.Recall()])
+        return model
+
+    def mobilenet(self):
+        mobilenet = tf.keras.applications.MobileNet(include_top=False, weights='imagenet')
+        for layer in resnet.layers:
+            layer.trainable = False
+
+        inputs = tf.keras.Input(shape=(128, 128, 3))
+        x = resnet(inputs)
+        x = tf.keras.layers.Flatten()(x)
+        outputs = tf.keras.layers.Dense(2, activation="softmax")(x)
+        model = tf.keras.Model(inputs=inputs, outputs=outputs, name="my_model")
+        model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.0005), loss="categorical_crossentropy",
+                      metrics=["accuracy", tf.keras.metrics.Precision(), tf.keras.metrics.Recall()])
         return model
