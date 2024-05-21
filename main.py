@@ -38,24 +38,24 @@ for section in config.sections():
     y_train = df.iloc[:, 0]
     y_train = tf.one_hot(y_train, 2)
     y_train = np.array(y_train).astype("float32")
+    
     x_train = df.iloc[:, 1::]
     x_train = np.array(x_train).reshape(x_train.shape[0], 128, 128)
     x_train = np.expand_dims(x_train, -1).astype("float32")
     x_train = x_train.reshape(-1, 128, 128, 1)
-
-    networks = CNNNetwork()
-    model = networks.custom_model() if cnn_model == 'custom_cnn' else networks.resnet()
-    if cnn_model != 'custom_cnn':
-        x_train = tf.expand_dims(x_train, axis=3, name=None)
-        x_train = tf.repeat(x_train, 3, axis=3)
+    x_train = tf.expand_dims(x_train, axis=3, name=None)
+    x_train = tf.repeat(x_train, 3, axis=3)
 
     checkpoint_path = current_directory+f'/cnn_checkpoint/checkpoint/{base_name}/cp.ckpt'
     callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path , monitor = 'loss', save_weights_only=True , mode = 'max', verbose=1)
     early_stopping_callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=4)
+
+    networks = CNNNetwork()
+    model = networks.resnet()
     
     model.fit(x=x_train, y=y_train, batch_size=batch_size, epochs=epochs, verbose=1, callbacks = [callback, early_stopping_callback])
     
-    predict = PredictionHelper(cnn_model)
+    predict = PredictionHelper(True)
     predict.predict_all_test_files(True)
 
 
