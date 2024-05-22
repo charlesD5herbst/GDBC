@@ -20,10 +20,6 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.optimizers import Adam
 
-
-
-config_file_path = sys.argv[1]
-base_name, extension = os.path.splitext(config_file_path)
 current_directory = os.getcwd()
 
 class PredictionHelper:
@@ -195,7 +191,7 @@ class PredictionHelper:
         networks = CNNNetwork()
         model = networks.resnet()
         print('Loading weights: ')
-        checkpoint = current_directory+f'/cnn_checkpoint/checkpoint/{base_name}/cp.ckpt'
+        checkpoint = current_directory+'/cnn_checkpoint/checkpoint/cp.ckpt'
         model.load_weights(checkpoint)
                 
         return model
@@ -340,12 +336,8 @@ class PredictionHelper:
                 print('Shape correction')
                 spectrograms = np.expand_dims(spectrograms , -1).astype("float32")
                 spectrograms = spectrograms.reshape(-1 , 128 , 128 , 1)
-                #spectrograms = tf.expand_dims(spectrograms , axis=3 , name=None)
-                #spectrograms = tf.repeat(spectrograms , 3 , axis=3)
-
-                if self.cnn_model == 'resnet':
-                    spectrograms = tf.expand_dims(spectrograms , axis=3 , name=None)
-                    spectrograms = tf.repeat(spectrograms , 3 , axis=3)
+                spectrograms = tf.expand_dims(spectrograms , axis=3 , name=None)
+                spectrograms = tf.repeat(spectrograms , 3 , axis=3)
 
                 print('Predicting')
                 print(spectrograms.shape)
@@ -363,17 +355,11 @@ class PredictionHelper:
                 #values = values.astype(np.int)
 
                 # Find all the seconds which contain positive predictions
-                print("values",np.where(values == 0)[0])
-        
-                print("shape of values",values.shape)
-
                 positive_seconds = np.where(values == 1)[0]
-                print("printing the positive_seconds", positive_seconds)
 
                 # Group the predictions into consecutive chunks (to allow
                 # for audio clips to be extracted)
                 groups = self.group_consecutives(np.where(values == 1)[0])
-                print("groups", groups)
                 
                 predictions = []
                 for pred in groups:
