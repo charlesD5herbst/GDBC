@@ -8,10 +8,6 @@ import configparser
 import sys
 import os
 
-config_file_path = sys.argv[1]
-base_name, extension = os.path.splitext(config_file_path)
-config = configparser.ConfigParser()
-config.read(config_file_path)
 
 current_directory = os.getcwd()
 
@@ -19,11 +15,12 @@ def overlap(start1, end1, start2, end2):
     """how much does the range (start1, end1) overlap with (start2, end2)"""
     return max(max((end2-start1), 0) - max((end2-end1), 0) - max((start2-start1), 0), 0)
 
+folders = ['ModelPredictions', 'Annotations', 'Audio']
+paths = {folder: os.path.join(current_directory, 'Testing_script', folder) for folder in folders}
 
-prediction_folder = current_directory+f'/Testing_script/ModelPredictions/{base_name}/'
-annotation_folder = current_directory+'/Testing_script/Annotations/'
-audio_folder = current_directory+'/Testing_script/Audio/'
-
+prediction_folder = paths['ModelPredictions']
+annotation_folder = paths['Annotations']
+audio_folder = paths['Audio']
 
 files=listdir(audio_folder)
 predictions=[]
